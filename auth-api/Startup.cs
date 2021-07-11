@@ -28,7 +28,7 @@ namespace auth_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<HashApi>();
+            services.AddScoped<PasswordService>();
             services.AddDbContext<DataContext>(opt => 
             opt.UseNpgsql(Conf.GetConnectionString("Auth")));
         }
