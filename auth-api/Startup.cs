@@ -8,18 +8,29 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using auth_api.services;
+using auth_api.Data;
+using Npgsql.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace auth_api
 {
     public class Startup
     {
+        public Startup(IConfiguration conf)
+        {
+            Conf = conf;
+        }
 
+        public IConfiguration Conf { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
             services.AddScoped<HashApi>();
+            services.AddDbContext<DataContext>(opt => 
+            opt.UseNpgsql(Conf.GetConnectionString("Auth")));
         }
 
 
