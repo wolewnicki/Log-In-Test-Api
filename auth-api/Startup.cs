@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using auth_api.services;
 using auth_api.Data;
+using auth_api.Repositories;
 using Npgsql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +28,14 @@ namespace auth_api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(opt => 
+            {
+                opt.AddPolicy("ALL", 
+                x => x.AllowAnyOrigin());
+            });
             services.AddControllers();
             services.AddScoped<PasswordService>();
+            services.AddTransient<UserRepository>();
             services.AddDbContext<DataContext>(opt => 
             opt.UseNpgsql(Conf.GetConnectionString("Auth")));
         }
@@ -43,6 +50,7 @@ namespace auth_api
             }
 
             app.UseRouting();
+            app.UseCors("ALL");
 
             app.UseEndpoints(endpoints =>
             {
