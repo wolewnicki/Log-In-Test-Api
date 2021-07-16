@@ -31,7 +31,9 @@ namespace auth_api
             services.AddCors(opt => 
             {
                 opt.AddPolicy("ALL", 
-                x => x.AllowAnyOrigin());
+                x => x.AllowAnyOrigin()
+                      .AllowAnyHeader()
+                       .AllowAnyMethod());
             });
             services.AddControllers();
             services.AddScoped<PasswordService>();

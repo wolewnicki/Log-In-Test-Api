@@ -27,15 +27,14 @@ namespace auth_api.Controllers
             Console.WriteLine(PasswordService.checkPass("passwodr123", hash));
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("/v1/test")]
-        public IActionResult AddUser (UserEntity user)
+        public IActionResult AddUser ([FromBody]object user)
         {
-            var abc = "123";
-            // Console.WriteLine(user);
+            Console.WriteLine(user);
             // _userRepo.AddUser(user);
             // _userRepo.Save();
-            return Ok(abc);
+            return Ok(user);
         }
     }
 }
