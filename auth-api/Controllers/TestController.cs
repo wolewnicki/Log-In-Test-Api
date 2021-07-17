@@ -29,11 +29,11 @@ namespace auth_api.Controllers
 
         [HttpPost]
         [Route("/v1/test")]
-        public IActionResult AddUser ([FromBody]object user)
+        public IActionResult AddUser ([FromBody]UserEntity user)
         {
             Console.WriteLine(user);
-            // _userRepo.AddUser(user);
-            // _userRepo.Save();
+            _userRepo.AddUser(user);
+            _userRepo.Save();
             return Ok(user);
         }
     }

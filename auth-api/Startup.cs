@@ -33,7 +33,7 @@ namespace auth_api
                 opt.AddPolicy("ALL", 
                 x => x.AllowAnyOrigin()
                       .AllowAnyHeader()
-                       .AllowAnyMethod());
+                      .AllowAnyMethod());
             });
             services.AddControllers();
             services.AddScoped<PasswordService>();
